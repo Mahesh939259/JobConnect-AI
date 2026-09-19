@@ -1,0 +1,59 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Backend Server",
+      "type": "shell",
+      "command": "npm run server",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*",
+          "endsPattern": ".*Backend running.*"
+        }
+      },
+      "presentation": {
+        "group": "servers",
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Start Frontend Client",
+      "type": "shell",
+      "command": "npm run client",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*",
+          "endsPattern": ".*Local:.*"
+        }
+      },
+      "presentation": {
+        "group": "servers",
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Seed Database (Indian Tech Dataset)",
+      "type": "shell",
+      "command": "npm run seed",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Automated E2E Tests",
+      "type": "shell",
+      "command": "cd backend && npm test",
+      "problemMatcher": []
+    }
+  ]
+}
