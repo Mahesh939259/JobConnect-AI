@@ -114,8 +114,19 @@ const startServer = async () => {
       await seedDatabase();
     }
 
-    app.listen(PORT, '0.0.0.0', () => {
+    const server = app.listen(PORT, '0.0.0.0', () => {
       console.log(`[JobConnect AI] Backend running in ${process.env.NODE_ENV || 'development'} mode on http://127.0.0.1:${PORT}`);
+    });
+
+    server.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        console.error(`\n[JobConnect AI ERROR] Port ${PORT} is already in use by another process.`);
+        console.error(`[JobConnect AI HINT] Run this PowerShell command to free port ${PORT}:`);
+        console.error(`   Get-Process -Id (Get-NetTCPConnection -LocalPort ${PORT}).OwningProcess | Stop-Process -Force\n`);
+      } else {
+        console.error('[JobConnect AI ERROR]', err.message);
+      }
+      process.exit(1);
     });
   } catch (err) {
     console.error('[JobConnect AI] Server boot error:', err.message);
